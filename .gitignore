@@ -1,0 +1,4 @@
+*.pyc
+*.session
+config.json
+bot.py

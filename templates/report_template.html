@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #444;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .report-summary {
+            margin-bottom: 20px;
+        }
+        .highlight {
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis Report</h1>
+    <p><strong>Date Generated:</strong> {{ date_generated }}</p>
+    <div class="report-summary">
+        <p><strong>Total Messages Analyzed:</strong> {{ total_messages }}</p>
+        <p><strong>Overall Sentiment Score:</strong> {{ overall_score }}/100</p>
+        <p><strong>Interpretation:</strong> {{ interpretation }}</p>
+    </div>
+
+    <h2>Message Sentiment Breakdown</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Count</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category, description in categories %}
+            <tr>
+                <td>{{ category }}</td>
+                <td>{{ description }}</td>
+                <td>{{ sentiment_counts.get(category, 0) }}</td>
+                <td>{{ (sentiment_counts.get(category, 0) / total_messages) * 100 }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Top 5 Most Concerning Messages (Potential Threats)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Message</th>
+                <th>Threat Level (Compound Score)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in top_threats.itertuples() %}
+            <tr>
+                <td>{{ row.Message[:100] }}...</td>
+                <td>{{ row.Compound }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Top 5 Most Positive Messages (Potential Security Improvements)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Message</th>
+                <th>Positivity Level (Compound Score)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in top_positives.itertuples() %}
+            <tr>
+                <td>{{ row.Message[:100] }}...</td>
+                <td>{{ row.Compound }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
