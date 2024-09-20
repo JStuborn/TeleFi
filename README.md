@@ -4,6 +4,8 @@
 
 TeleFi (also known as TeleHunter) is a powerful tool for scraping and analyzing Telegram chat messages. It recursively collects data from Telegram channels and chats, processes sentiment analysis on the gathered text, and provides detailed reports for cybersecurity threat assessments.
 
+<img src="https://github.com/JStuborn/TeleFi/blob/main/_images/sample.jpg?raw=true">
+
 ---
 
 ## Features
